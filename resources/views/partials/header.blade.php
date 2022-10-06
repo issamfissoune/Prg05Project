@@ -1,2 +1,1 @@
-<strong>{{$heroText}}</strong>
-<img src="{{Vite::assets}}" alt="">
+<img src="{{ Vite::asset('resources/images/FinnSprite8.png') }}">

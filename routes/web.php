@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'show']);
+Route::get('/', [HomeController::class, 'show'])->name('home');
+Route::get('/login');
 
 //Route::get('/hello-world', function () {
 //    $message = "wagwan";
@@ -23,3 +24,9 @@ Route::get('/', [HomeController::class, 'show']);
 //
 //    return view('hello', ['message' => $message]);
 //});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [\App\Http\Controllers\Index::class, 'show'])->name('index');

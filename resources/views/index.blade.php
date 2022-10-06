@@ -6,16 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @vite(['resources/css/app.css'])
 </head>
 <body>
-@yield('content')
-@include('partials.header')
-<nav>
-    <ul>
-        <li><a href="{{Route('home')}}">Home</a></li>
-        <li><a href="{{}}"></a></li>
-    </ul>
-</nav>
+<h1>
+@foreach($spells as $spell)
+    {{$spell->spell_name}}
+        <br>
+    {{$spell->spell_type}}
+@endforeach
+</h1>
 </body>
 </html>
