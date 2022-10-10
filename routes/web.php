@@ -29,4 +29,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', [\App\Http\Controllers\Index::class, 'show'])->name('index');
+Route::get('/', [\App\Http\Controllers\SpellController::class, 'index'])->name('index');
+
+Route::resource('spell', 'App\Http\Controllers\SpellController');
