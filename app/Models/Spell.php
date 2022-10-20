@@ -14,7 +14,8 @@ class Spell extends Model
         'spell_type',
         'damage',
         'details',
-        'user_id'
+        'user_id',
+        "file_path"
     ];
 
 

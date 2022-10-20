@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('spell.store')}}" method="post">
+<form action="{{route('spell.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div>
             <label for="spell_name" class="form-label">Name</label>
@@ -50,6 +50,17 @@
                    name="details"
                    value="{{old('details')}}" />
             @error('details')
+            <span>{{$message}}</span>
+            @enderror
+        </div>
+
+    <div>
+            <label for="file_path" class="form-label"></label>
+            <input id="file_path"
+                   type="file"
+                   name="file_path"
+                   value="{{old('file_path')}}" required />
+            @error('file_path')
             <span>{{$message}}</span>
             @enderror
         </div>
