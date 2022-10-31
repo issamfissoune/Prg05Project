@@ -18,6 +18,13 @@ class Spell extends Model
         "file_path"
     ];
 
+//    public function scopeFilter ($query){
+//        if (request('search')){
+//            $query -> where('spell_type', 'like', '%'. request('search'). '%')
+//                   -> orWhere('spell_name', 'like', '%'. request('search'). '%');
+//        }
+//    }
+
 
     public function user(){
         return $this->belongsTo(User::class);

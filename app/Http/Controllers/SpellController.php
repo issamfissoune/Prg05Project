@@ -18,10 +18,10 @@ class SpellController extends Controller
     {
 
 //        auth(User::class);
-        $spells = Spell::all();
+//        $spells = Spell::all();
 
         return view('spell.index', [ // TODO: verplaatsen
-            'spells' => $spells
+            'spells' => $this->getSpell()
         ]);
     }
     //
@@ -60,9 +60,39 @@ class SpellController extends Controller
             $spell->save(); // Finally, save the record.
         }
 
+
+
 //        Spell::create(array_merge($request->all(), [
 //            'user_id' => \Auth::user()->id
 //        ]));
+
+        return redirect()->route('spell.index');
+    }
+
+    public function edit(Spell $spell)
+    {
+        return view('spell.edit',compact('spell'));
+    }
+
+    public function update(Request $request, $id){
+       //validaten wat ingevuld moet worden
+        $request->validate([
+            'spell_name' => 'required',
+            'spell_type' => 'required',
+            'damage'=>['required', 'numeric'],
+            'details'=>'required',
+            'file_path'=> 'required',
+        ]);
+
+        $request->file('file_path')->storePublicly('file_path', 'public');
+
+        $spell = Spell::find($id);
+        $spell->spell_name = $request->get('spell_name');
+        $spell->spell_type = $request->get('spell_type');
+        $spell->damage = $request->get('damage');
+        $spell->details = $request->get('details');
+        $spell->file_path = $request->file('file_path')->hashName();
+        $spell->save();
 
         return redirect()->route('spell.index');
     }
@@ -74,6 +104,17 @@ class SpellController extends Controller
 
     }
 
+    protected function getSpell()
+    {
+        //simple search functie
+//        return Spell::latest()->filter()->get();
+        $spells = Spell::latest();
 
+        if (request('search')) {
+            $spells->where('spell_type', 'like', '%' . request('search') . '%')
+                   ->orWhere('spell_name', 'like', '%' . request('search') . '%');
+        }
+            return $spells->get();
+    }
 
 }
