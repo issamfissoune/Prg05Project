@@ -92,8 +92,8 @@ Cards
     <div class="detail">
         <p>{{$spell->details}}</p>
     </div>
-    @if( auth::user()->id == $spell->user_id)
-
+    @if( auth::user() && auth::user()->id == $spell->user_id)
+{{--@while(auth::user() && auth::user()->is_admin == 1 && auth::user()->id == $spell->user_id);--}}
 
     <div>
         <form action="{{ route('spell.destroy',$spell->id) }}" method="POST">
@@ -109,13 +109,16 @@ Cards
             </form>
     </div>
     @endif
+{{--    @endwhile--}}
 </div>
 
 @endforeach
 
 
-</body>
+
 </section>
 <a href="{{route('spell.create')}}"> create spell</a>
+</body>
+
 </html>
 @endsection

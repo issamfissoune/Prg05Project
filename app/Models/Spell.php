@@ -15,7 +15,8 @@ class Spell extends Model
         'damage',
         'details',
         'user_id',
-        "file_path"
+        "file_path",
+        "activity"
     ];
 
 //    public function scopeFilter ($query){

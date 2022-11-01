@@ -19,10 +19,10 @@ class SpellController extends Controller
 
 //        auth(User::class);
 //        $spells = Spell::all();
+$spells = Spell::where('activity', '=', '1')->get();
 
-        return view('spell.index', [ // TODO: verplaatsen
-            'spells' => $this->getSpell()
-        ]);
+        return view('spell.index', compact('spells')
+        );
     }
     //
     public function create(){
@@ -67,6 +67,13 @@ class SpellController extends Controller
 //        ]));
 
         return redirect()->route('spell.index');
+    }
+
+    public function show (Spell $spell){
+        return view('spell.show', [
+
+            'spell' => $spell
+        ]);
     }
 
     public function edit(Spell $spell)
@@ -115,6 +122,30 @@ class SpellController extends Controller
                    ->orWhere('spell_name', 'like', '%' . request('search') . '%');
         }
             return $spells->get();
+    }
+
+//   public function toggleActivity(Request $request){
+//       $spell = Spell::find($request->spell_id);
+//       $spell->activity = $request->activity;
+//       $spell->save();
+//   }
+
+    public function toggleActivity(Spell $spell)
+    {
+
+        $currentState = $spell->activity;
+        if ($currentState)
+        {
+            $newState = false;
+        } else
+        {
+            $newState = true;
+        }
+
+        $spell->activity = $newState;
+        $spell->save();
+
+        return redirect(route('spell.index'));
     }
 
 }

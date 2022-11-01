@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('damage');
             $table->text("details");
             $table->string('file_path');
+            $table->boolean('activity')->default(true);
             $table->timestamps();
         });
     }

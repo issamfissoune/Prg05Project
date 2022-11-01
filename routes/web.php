@@ -32,3 +32,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [\App\Http\Controllers\SpellController::class, 'index'])->name('index');
 
 Route::resource('spell', 'App\Http\Controllers\SpellController');
+
+Route::patch('spell/{spell}/toggleActivity', [\App\Http\Controllers\SpellController::class, 'toggleActivity'])->name('toggleActivity');
+Route::resource('mySpell', '\App\Http\Controllers\MySpells');
