@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Spell;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SpellController extends Controller
 {
@@ -26,7 +27,12 @@ $spells = Spell::where('activity', '=', '1')->get();
     }
     //
     public function create(){
-        return view('spell.create');
+            if (auth::user()->favo >= 5){
+                return view('spell.create');
+            }else{
+                return view('spell.index');
+            }
+
     }
 
     public function store(Request $request){
