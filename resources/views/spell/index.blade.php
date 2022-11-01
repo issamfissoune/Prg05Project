@@ -107,6 +107,16 @@ Cards
 
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
+        <form action="{{ route('toggleActivity', $spell->id)}}" method="post" style="margin-left: 10px">
+            @method('PATCH')
+            @csrf
+            @if($spell->actvity = 1)
+                <button class="btn btn-light" type="submit">Remove from public</button>
+            @else
+                <button class="btn btn-dark" type="submit">Show on public</button>
+            @endif
+
+        </form>
     </div>
     @endif
 {{--    @endwhile--}}
@@ -117,7 +127,11 @@ Cards
 
 
 </section>
-<a href="{{route('spell.create')}}"> create spell</a>
+
+@if(auth::user() &&auth::user()->favo >= 5)
+    <a href="{{route('spell.create')}}"> create spell</a>
+@endif
+
 </body>
 
 </html>

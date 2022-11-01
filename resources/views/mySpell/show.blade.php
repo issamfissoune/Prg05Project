@@ -14,19 +14,19 @@
     <h1>
         Cards
     </h1>
-{{--    <div class="searchbar">--}}
-{{--        <form method="get" action="">--}}
-{{--            <input type="text", name="search", placeholder="search spell">--}}
-{{--        </form>--}}
-{{--    </div>--}}
+    <div class="searchbar">
+        <form method="get" action="">
+            <input type="text", name="search", placeholder="search spell">
+        </form>
+    </div>
 
-{{--    <select name="spell_type" >--}}
-{{--        <option value="">zoek category</option>--}}
+    <select name="spell_type" >
+        <option value="">zoek category</option>
 
-{{--        @foreach($spells as $spell);--}}
-{{--        <option value="">{{$spell->spell_type}}</option>--}}
-{{--        @endforeach--}}
-{{--    </select>--}}
+        @foreach($spells as $spell);
+        <option value="">{{$spell->spell_type}}</option>
+        @endforeach
+    </select>
 
     <section id="card-gallery">
         {{--<table>--}}
@@ -92,7 +92,7 @@
                 <div class="detail">
                     <p>{{$spell->details}}</p>
                 </div>
-                @if( auth::user() && auth::user()->id == $spell->user_id)
+                @if( auth::user() && auth::user()->is_admin == 1)
                     {{--@while(auth::user() && auth::user()->is_admin == 1 && auth::user()->id == $spell->user_id);--}}
 
                     <div>
@@ -107,16 +107,6 @@
 
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <form action="{{ route('toggleActivity', $spell->id)}}" method="post" style="margin-left: 10px">
-                            @method('PATCH')
-                            @csrf
-                            @if($spell->actvity = 0)
-                                <button class="btn btn-light" type="submit">Remove from public</button>
-                            @else
-                                <button class="btn btn-dark" type="submit">Show on public</button>
-                            @endif
-
-                        </form>
                     </div>
                 @endif
                 {{--    @endwhile--}}
@@ -127,11 +117,7 @@
 
 
     </section>
-
-    @if(auth::user() &&auth::user()->favo >= 5)
-        <a href="{{route('spell.create')}}"> create spell</a>
-    @endif
-
+    <a href="{{route('spell.create')}}"> create spell</a>
 </body>
 
 </html>
